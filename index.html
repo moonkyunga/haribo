@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>하리보 무덤</title>
+	<style type="text/css">
+		@font-face { font-family: 'yg-jalnan'; 
+		src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') 
+		format('woff'); font-weight: normal; font-style: normal; 
+		}
+		body{position: relative;
+			overflow: hidden;
+			width: 100%;
+			cursor: url('mouth.png');
+		}
+		p{font-family: 'yg-jalnan'; font-size: 60px; margin: 10px;}
+		#haribo{width: 200px; height: 600px;
+			position: absolute;
+			animation: drop 4s forwards ease-in; 
+		}
+		#bigharibo{width: 200px; height: 600px;
+			position: absolute;
+			animation: bigdrop 5s forwards ease-in; 
+		}
+		@keyframes drop{
+			0%{ margin-top: 0px; opacity:0;}
+			80%{ opacity:1;}
+			20%{opacity:1;}
+			100%{ margin-top: 700px; opacity:1;}
+		}
+		@keyframes bigdrop{
+			0%{ margin-top: 0px; opacity:0;}
+			80%{ opacity:1;}
+			20%{opacity:1;}
+			100%{ margin-top: 700px; opacity:0;}
+		}
+		@keyframes op1{
+			from{opacity: 1;}
+			to{opacity: 0;}
+		}
+	
+	</style>
+</head>
+<body>
+	
+	<section>
+	<div id="haribo"> </div>
+	<div id="bigharibo"> </div>
+	<p>쌓여가는 하리보를 어서 빨리 먹어치우자!</p>
+	<audio src="eat.mov" id="sound"></audio>
+	</section>
+
+	<script type="text/javascript">
+		setInterval(hariboharibo,1000);
+		setInterval(bigharibo,6000);
+
+		function hariboharibo(){
+			var total = 0;
+			for(var i=0; i < 3; i++){
+				var h = document.getElementById("haribo");
+				var newh = h.cloneNode(true);
+				newh.style.position = "absolute";
+				newh.style.zIndex = "9999";
+				var color = random(1,5)
+				newh.style.background = "url('hari_" + color + ".png') no-repeat";
+
+				newh.style.backgroundSize = "100% auto";
+				newh.style.left = random(0,window.innerWidth) + "px";
+				newh.style.top = random(-50,100) + "px";
+				
+				newh.onclick = function(){
+					remove(newh);
+					sound.play();
+				}
+				document.body.appendChild(newh);
+			}
+		}
+		function bigharibo(){
+			var total = 0;
+			for(var i=0; i < 1; i++){
+				var hh = document.getElementById("haribo");
+				var newhh = hh.cloneNode(true);
+				newhh.style.position = "absolute";
+				newhh.style.background = "url('bigharibo.png') no-repeat";
+
+				newhh.style.backgroundSize = "120% auto";
+				newhh.style.left = random(0,window.innerWidth) + "px";
+				newhh.style.top = random(0,100) + "px";
+				
+				newhh.onclick = function(){
+					newhh.style.background = "url('firework.gif') no-repeat";
+					newhh.style.backgroundSize = "100% auto";
+					newhh.style.animation = "op1 1.5s forwards"
+					sound.play();
+				}
+				document.body.appendChild(newhh);
+			}
+		}
+		function remove(){
+			var t = event.target; 
+			t.parentNode.removeChild(t); 
+		}
+		function random(min, max) {
+	  		min = Math.ceil(min);
+	  		max = Math.floor(max);
+	  		return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+	</script>
+</body>
+</html>

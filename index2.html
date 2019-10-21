@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>하리보 무덤</title>
+	<style type="text/css">
+		body{position: relative;
+			overflow: hidden;
+			width: 100%;}
+		.haribo{width: 200px; height: 900px;
+			position: absolute;
+			animation: rr 5s infinite ease-in;}
+
+		@keyframes rr{
+			100%{ background-position:0 800px;opacity:0;}
+			80%{ opacity:1; }
+			20%{opacity:1;}
+			0%{ background-position: 0 0px; opacity:0;}
+		}
+	
+	</style>
+</head>
+<body>
+	<div class="haribo"> </div>
+
+	<script type="text/javascript">
+
+			setInterval(hariboharibo,2000);
+
+		function hariboharibo(){
+			var t = document.createElement("div");
+			t.setAttribute("class","haribo"); 
+			t.style.position = "absolute"; 
+
+			t.style.background = "url('hari_" + random(1,5) + ".png') no-repeat";
+
+			t.style.backgroundSize = "100% auto";
+			t.style.left = random(0,window.innerWidth) + "px";
+			
+			t.onclick = function(){
+				t.style.background = "url(bear.jpg)"
+				t.style.backgroundSize = "100%";
+				remove(t);
+				}
+			t.addEventListener("animationend",remove);
+			document.body.appendChild(t);
+		}
+
+		function remove(){
+			var t = event.target; 
+			t.parentNode.removeChild(t); 
+		}
+		function random(min, max) {
+	  		min = Math.ceil(min);
+	  		max = Math.floor(max);
+	  		return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+	</script>
+</body>
+</html>
